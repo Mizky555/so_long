@@ -32,8 +32,8 @@ SRCS			= ft_itoa.c \
 					ft_strdup.c \
 					ft_substr.c \
 					ft_strjoin.c \
-					get_next_line_bonus.c \
-					get_next_line_utils_bonus.c
+					get_next_line_bonus->c \
+					get_next_line_utils_bonus->c
 
 
 OBJS			= $(SRCS:.c=.o)

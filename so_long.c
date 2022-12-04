@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:45 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/11/26 23:25:54 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/05 02:21:01 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,26 @@
 
  int    main(int argc,char **argv)
  {
-   if (argc == 2)
+   t_game   s;
+   
+   if (argc == 2) //ต้องรับค่าเข้ามาแค่สอง ได้แก่ ./a.out Map/Map1.ber ถ้าไม่ใช่เข้า else
    {
-      int	fd;
-	    char *str;
-
-	    (void) argc;
-	    str = NULL;
-	    fd = open(argv[1], O_RDONLY);
-
-	    str = get_next_line(fd);
-	    printf("get_next_line = %s\n",str);
-	    free(str);
-	    str = NULL;
-      
-      printf("Hello Opal\n");
-      
+      map_xy(argv, &s);
+      return(0);
    }
    else
    {
-    print_error("input argument error\n");
+      print_error("input argument error\n");
    }
    return(0);
  }
 
+
 void    print_error(char *str)
 {
-    int i;
-    i = 0;
-    while (str[i] != '\0')
-    {
-        write(2,&str[i],1);
-        i++;
-    }
+   write(2,"Error\n",6);
+   write(2,str, ft_strlen(str));
+
 }
 
 /*argc อากิวเม้นเค้า (int)
