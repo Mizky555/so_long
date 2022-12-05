@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:54 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/05 02:21:01 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:58:48 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int map_xy(char **argv, t_game *s);
 void    print_error(char *str);
 void    check_file(char **argv);
 int	sl_strlen(char *s);
-int map_wall(char   **str, t_game *s);
+void map_wall(t_game *s);
+void    map_checkwall(char **str, int    height, int  lenght, int mode);
+
 
 #endif
