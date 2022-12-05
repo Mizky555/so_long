@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <sys/fcntl.h>
 
-int map_xy(char **argv, t_game *s)//เช็คว่าเป็น 4 เหลี่ยมไหม
+int map_check_rectangle(char **argv, t_game *s)//เช็คว่าเป็น 4 เหลี่ยมไหม
 {
     int fd;
     
@@ -20,14 +21,10 @@ int map_xy(char **argv, t_game *s)//เช็คว่าเป็น 4 เห�
     fd = open(argv[1],O_RDONLY);
     s->str_map = get_next_line(fd);//เก็บเพื่อใช้นับ height lenght(ทำลีละบรรทัดแล้วฟรี)
     s->lenght = sl_strlen(s->str_map);//นับlenghtของบรรทัดแรก->ใช้เทียบกับบรรทัดที่เหลือ
-    printf("lenght = %d\n",s->lenght);
-    map_checkwall(s->str_map,s->height,s->lenght,1);
     while (s->str_map)
     {
         free(s->str_map);
         s->str_map = get_next_line(fd);
-        map_checkwall(s->str_map,s->height,sl_strlen(s->lenght),2);
-        printf("s->str_map = %s\n",s->str_map);
         if (s->str_map && sl_strlen(s->str_map) != s->lenght)
         {//เข้าเมื่อความยาวของบรรทัดต่อมาไม่เท่ากับความยาวของบรรทัดแรก
             free(s->str_map);
@@ -36,62 +33,75 @@ int map_xy(char **argv, t_game *s)//เช็คว่าเป็น 4 เห�
         }
         s->height++;
     }
-    map_checkwall(s->str_map,s->height,s->lenght,1);//เช็คบรรทัดสุดท้าย (hight - 1)
-    printf("hight = %d\n", s->height);
     free(s->str_map);
+    close(fd);
     return(0);
 }
 
-void    map_checkwall(char **str, int    height, int  lenght, int mode)
+void map_create(char **argv, t_game *s)
 {
-    int l;
+    int fd;
+    int h;
 
-    l = 0;
-    while (lenght > l)
+    h = 0;
+    fd = open(argv[1],O_RDONLY);
+    s->map = malloc(sizeof(char *) * s->height + 1);
+    while (h <= s->height - 1)
     {
-        if (height == 0 && str[height][l] != 1 || mode = 1)
-        {
-            printf("Error check wall");
-            exit(1);
-        }
-        else if (str[height][0] && str[height][lenght - 1] != 0)
-        {
-            printf("Error check wall");
-            exit(1);
-        }
-        l++;
+        s->map[h] = get_next_line(fd);
+        h++; 
     }
+    s->map[h] = NULL;
+    close(fd);
 }
 
-void map_wall(t_game *s)
+void map_wallandpart(t_game *s)
 {
     int h;
+    int l;
     
     h = 0;
-    while (h <= s->height)
+    while (h < s->height)
     {
-        int l;
-        
         l = 0;
         if (h == 0 || h == s->height - 1)
         {
             while (l < s->lenght)
             {
-                if (s->str_map[h][l] != '1')
+                if (s->map[h][l] != '1')
                 {
-                    print_error("Error map_wall");
+                    print_error("Error map_wall if");
+                    h = 0;
+                    while (h <= s->height - 1)
+                    {
+                        free(s->map[h]);
+                        h++; 
+                    }
+                    free(s->map);
                     exit(1);
                 }
-            l++; 
+                l++; 
             }
         }
         else
         {
             while (l < s->lenght)
             {
-                if (s->str_map[h][0] != 0 || s->str_map[h][s->lenght - 1] != 0)
+                if (ft_strchr("01CPE", s->map[h][l] )== NULL)
                 {
-                    print_error("Error map_wall");
+                    print_error("Error part map_wallandpart");
+                    exit(1);
+                }
+                if (s->map[h][0] != '1' || s->map[h][s->lenght - 1] != '1')
+                {
+                    print_error("Error map_wall else");
+                    h = 0;
+                    while (h <= s->height - 1)
+                    {
+                        free(s->map[h]);
+                        h++; 
+                    }
+                    free(s->map);
                     exit(1);
                 }
                 l++;
@@ -118,3 +128,22 @@ int	sl_strlen(char *s)
     }
     return (len);
 }
+/*
+void    map_count_part(char part, t_game *s)
+{
+    s->count_c = 0;
+    s->count_e = 0;
+    s->count_p = 0;
+    if (part == '0' || part == '1');
+    else if (part == 'C')
+        s->count_c++;
+    else if (part == 'E')
+        s->count_e++;
+    else if (part == 'P')
+        s->count_p++;
+    else
+    {
+        print_error("Error map character");
+        exit(1);    
+    }
+}*/

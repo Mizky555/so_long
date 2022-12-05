@@ -22,16 +22,20 @@
 typedef struct s_game
 {
 	char	*str_map;
+	char	**map;
 	int	height;
 	int	lenght;
+    int count_c;
+    int count_e;
+    int count_p;
 }	t_game;
 
-int map_xy(char **argv, t_game *s);
+int map_check_rectangle(char **argv, t_game *s);
 void    print_error(char *str);
 void    check_file(char **argv);
 int	sl_strlen(char *s);
-void map_wall(t_game *s);
-void    map_checkwall(char **str, int    height, int  lenght, int mode);
-
+void map_create(char **argv, t_game *s);
+void map_wallandpart(t_game *s);
+//void    map_count_part(char part, t_game *s);
 
 #endif

@@ -18,8 +18,13 @@
    
    if (argc == 2) //ต้องรับค่าเข้ามาแค่สอง ได้แก่ ./a.out Map/Map1.ber ถ้าไม่ใช่เข้า else
    {
-      map_xy(argv, &s);
-      map_wall(t_game *s);
+      map_check_rectangle(argv, &s);
+      // printf("Hello\n");
+      // printf("map_xy\n");
+      map_create(argv, &s);
+      // printf("map_create\n");
+      map_wallandpart(&s);
+      // printf("map_wall\n");
       return(0);
    }
    else
