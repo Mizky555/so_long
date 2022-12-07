@@ -21,13 +21,15 @@
 
 typedef struct s_game
 {
-	char	*str_map;
-	char	**map;
+	char	*map_check;
+	char	**map_real;
 	int	height;
 	int	lenght;
     int count_c;
     int count_e;
     int count_p;
+	int	player_h;
+	int	player_l;
 }	t_game;
 
 int map_check_rectangle(char **argv, t_game *s);
@@ -36,6 +38,7 @@ void    check_file(char **argv);
 int	sl_strlen(char *s);
 void map_create(char **argv, t_game *s);
 void map_wallandpart(t_game *s);
-//void    map_count_part(char part, t_game *s);
+void    map_count_part(char part, t_game *s);
+void    map_count_part_check(t_game *s);
 
 #endif

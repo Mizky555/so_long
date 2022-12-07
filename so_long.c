@@ -15,7 +15,10 @@
  int    main(int argc,char **argv)
  {
    t_game   s;
-   
+
+   s.count_c = 0;
+   s.count_e = 0;
+   s.count_p = 0;
    if (argc == 2) //ต้องรับค่าเข้ามาแค่สอง ได้แก่ ./a.out Map/Map1.ber ถ้าไม่ใช่เข้า else
    {
       map_check_rectangle(argv, &s);
@@ -25,6 +28,7 @@
       // printf("map_create\n");
       map_wallandpart(&s);
       // printf("map_wall\n");
+      printf("player [%d][%d]\n",s.player_h,s.player_l);
       return(0);
    }
    else
