@@ -30,6 +30,7 @@ typedef struct s_game
     int count_p;
 	int	player_h;
 	int	player_l;
+	int	player_eat_c;
 }	t_game;
 
 int map_check_rectangle(char **argv, t_game *s);
@@ -40,5 +41,7 @@ void map_create(char **argv, t_game *s);
 void map_wallandpart(t_game *s);
 void    map_count_part(char part, t_game *s);
 void    map_count_part_check(t_game *s);
+void    ff(t_game *s);
+void    ff_changandcheckeandcountc(t_game *s, char   someting);
 
 #endif
