@@ -23,6 +23,7 @@ typedef struct s_game
 {
 	char	*map_check;
 	char	**map_real;
+	char	**map_play;
 	int	height;
 	int	lenght;
     int count_c;
@@ -31,6 +32,7 @@ typedef struct s_game
 	int	player_h;
 	int	player_l;
 	int	player_eat_c;
+	int	player_eat_e;
 }	t_game;
 
 int map_check_rectangle(char **argv, t_game *s);
@@ -41,7 +43,8 @@ void map_create(char **argv, t_game *s);
 void map_wallandpart(t_game *s);
 void    map_count_part(char part, t_game *s);
 void    map_count_part_check(t_game *s);
-void    ff(t_game *s);
-void    ff_changandcheckeandcountc(t_game *s, char   someting);
+void    ff(t_game *s, char **map, int    h, int   l);
+void    ff_count(t_game *s,char map);
+void    ff_check(t_game *s);
 
 #endif

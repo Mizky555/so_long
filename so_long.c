@@ -23,14 +23,16 @@
    if (argc == 2) //ต้องรับค่าเข้ามาแค่สอง ได้แก่ ./a.out Map/Map1.ber ถ้าไม่ใช่เข้า else
    {
       map_check_rectangle(argv, &s);
-      // printf("Hello\n");
-      // printf("map_xy\n");
       map_create(argv, &s);
-      // printf("map_create\n");
       map_wallandpart(&s);
-      // printf("map_wall\n");
-      printf("player [%d][%d]\n",s.player_h,s.player_l);
-      ff(&s);
+      ff(&s, s.map_real, s.player_h, s.player_l);
+      ff_check(&s);
+      int   i = 0;
+      while (i < s.height)
+      {
+         printf("%s",s.map_play[i++]);
+      }
+
       return(0);
    }
    else

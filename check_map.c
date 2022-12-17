@@ -21,12 +21,23 @@ void map_create(char **argv, t_game *s)//เปิดไฟล์อ่านเ
     h = 0;
     fd = open(argv[1],O_RDONLY);
     s->map_real = malloc(sizeof(char *) * s->height + 1);
-    while (h <= s->height - 1)
+    while (h < s->height)
     {
         s->map_real[h] = get_next_line(fd);
         h++; 
     }
     s->map_real[h] = NULL;
+    close(fd);
+
+    h = 0;
+    fd = open(argv[1],O_RDONLY);
+    s->map_play = malloc(sizeof(char *) * s->height + 1);
+    while (h < s->height)
+    {
+        s->map_play[h] = get_next_line(fd);
+        h++;
+    }
+    s->map_play[h] = NULL;
     close(fd);
 }
 
@@ -169,40 +180,85 @@ void    map_count_part_check(t_game *s)//เช็คว่าตัวต่า
         printf("s->count_p = %d\n",s->count_p);
 }
 
-void    ff(t_game *s)//ย่อมาจากน้ำท่วม เช็คว่าเดินไปทางออกได้มั้ยและส่งเช็คว่าวิ่งเก็บเหรียญครบมั้ย
+
+void    ff(t_game *s, char **map, int    h, int   l)
 {
-    printf("%c",s->map_real[s->player_h][s->player_l]);
+    if (ft_strchr("0CEP",map[h][l]) != NULL)
+        ff_count(s, map[h][l]);
+    else if (map[h][l] == '1')
+        return;
+    map[h][l] = '1';
+    ff(s, map, h - 1, l);// ^^Up^^
+    ff(s, map, h + 1, l);// _Down_
+    ff(s, map, h, l - 1);// <<left<<
+    ff(s, map, h, l + 1);// >>right>>
+    return;
+}
+
+void    ff_count(t_game *s,char map)
+{
+    if (map == 'C')
+        s->player_eat_c++;
+    else if (map == 'E')
+        s->player_eat_e++;
+    else
+        return;
+    return;
+}
+
+void    ff_check(t_game *s)
+{
+    if (s->player_eat_c != s->count_c || s->player_eat_e != 1)
+    {
+        print_error("Path error ff_check \n");
+        exit(1);
+    }
+    return;
+}
+
+/*void    ff(t_game *s)//ย่อมาจากน้ำท่วม เช็คว่าเดินไปทางออกได้มั้ยและส่งเช็คว่าวิ่งเก็บเหรียญครบมั้ย ผิดดดดดด
+{
+    
     if (ft_strchr("0CE",s->map_real[s->player_h - 1][s->player_l]) != NULL)//^^^Up^^^
     {
         s->player_h--;
         ff_changandcheckeandcountc(s, s->map_real[s->player_h][s->player_l]);
         ff(s);
     }
-    else if (ft_strchr("0CE",s->map_real[s->player_h + 1][s->player_l]) != NULL)//down
+    if (ft_strchr("0CE",s->map_real[s->player_h + 1][s->player_l]) != NULL)//down
     {
         s->player_h++;
         ff_changandcheckeandcountc(s, s->map_real[s->player_h][s->player_l]);
         ff(s);
     }
-    else if (ft_strchr("0CE",s->map_real[s->player_h][s->player_l - 1]) != NULL)//<<<left<<<
+    if (ft_strchr("0CE",s->map_real[s->player_h][s->player_l - 1]) != NULL)//<<<left<<<
     {
         s->player_l--;
         ff_changandcheckeandcountc(s, s->map_real[s->player_h][s->player_l]);
         ff(s);
     }
-    else if (ft_strchr("0CE",s->map_real[s->player_h][s->player_l + 1]) != NULL)//>>>right>>>
+    if (ft_strchr("0CE",s->map_real[s->player_h][s->player_l + 1]) != NULL)//>>>right>>>
     {
         s->player_l++;
         ff_changandcheckeandcountc(s, s->map_real[s->player_h][s->player_l]);
         ff(s);
     }
+}*/
 
-}
 
-void    ff_changandcheckeandcountc(t_game *s, char   someting)
+/*void    ff_changandcheckeandcountc(t_game *s, char   someting)
 {
+    printf("\n----------\n");
+int i=0;
+while (i < s->height)
+{
+    printf("%s",s->map_real[i]);
+    i++;
+}
+printf("player[%d][%d]\n",s->player_h,s->player_l);
     if (someting == 'C')//เจอ c บวกเข้าไป
         s->player_eat_c++;
+
     else if(someting == 'E')
     {
         printf("%d %d\n",s->player_eat_c, s->count_c);
@@ -211,7 +267,8 @@ void    ff_changandcheckeandcountc(t_game *s, char   someting)
             printf("ERRORERRORERRORERRORERROR\n");//แมพถูกต้อง เก็บcครบและเดินถึง e ได้
             exit(1);
         }
-        
+
     }
     s->map_real[s->player_h][s->player_l] = 'P';//เปลี่ยนตัวที่ผ่านมาแล้ว(ทำสัญลักษณ์)
-}
+    printf("player_eat_c = %d\n",s->player_eat_c);
+}*/
