@@ -55,8 +55,10 @@ int map_check_rectangle(char **argv, t_game *s)//เช็คว่าเป็�
         s->map_check = get_next_line(fd);
         if (s->map_check && sl_strlen(s->map_check) != s->lenght)
         {//เข้าเมื่อความยาวของบรรทัดต่อมาไม่เท่ากับความยาวของบรรทัดแรก
-            free(s->map_check);
             print_error("Error map_xy -> lenght\n");
+            free(s->map_check);
+            free_map_play(s);
+            free_map_real(s);
             exit(1);
         }
         s->height++;
@@ -84,13 +86,8 @@ void map_wallandpart(t_game *s)//วนเช็คกำแพวรอบก�
                 if (s->map_real[h][l] != '1')
                 {
                     print_error("Error map_wall if");
-                    h = 0;
-                    while (h <= s->height - 1)
-                    {
-                        free(s->map_real[h]);
-                        h++; 
-                    }
-                    free(s->map_real);
+                    free_map_play(s);
+                    free_map_real(s);
                     exit(1);
                 }
                 l++; 
@@ -115,13 +112,8 @@ void map_wallandpart(t_game *s)//วนเช็คกำแพวรอบก�
                 if (s->map_real[h][0] != '1' || s->map_real[h][s->lenght - 1] != '1')
                 {
                     print_error("Error map_wall else");
-                    h = 0;
-                    while (h <= s->height - 1)
-                    {
-                        free(s->map_real[h]);
-                        h++; 
-                    }
-                    free(s->map_real);
+                    free_map_play(s);
+                    free_map_real(s);
                     exit(1);
                 }
                 l++;
@@ -165,6 +157,8 @@ void    map_count_part(char part, t_game *s)//เช็คว่ามีตั�
     else
     {
         print_error("Error map character");
+        free_map_play(s);
+        free_map_real(s);
         exit(1);    
     }
 }
@@ -183,11 +177,11 @@ void    map_count_part_check(t_game *s)//เช็คว่าตัวต่า
 
 void    ff(t_game *s, char **map, int    h, int   l)
 {
-    if (ft_strchr("0CEP",map[h][l]) != NULL)
+    if (ft_strchr("0CEP",map[h][l]) != NULL)//ft_strchr เช็คว่าถ้าไม่มีตัวใดตัวหนึ่งใน "" เลยจะ return NULL
         ff_count(s, map[h][l]);
     else if (map[h][l] == '1')
         return;
-    map[h][l] = '1';
+    map[h][l] = '1';//เปลี่ยนตัวที่เดินผ่านมาแล้วเป็นกำแพง
     ff(s, map, h - 1, l);// ^^Up^^
     ff(s, map, h + 1, l);// _Down_
     ff(s, map, h, l - 1);// <<left<<
@@ -195,7 +189,7 @@ void    ff(t_game *s, char **map, int    h, int   l)
     return;
 }
 
-void    ff_count(t_game *s,char map)
+void    ff_count(t_game *s,char map)//ฟ.นับว่ามีตัวที่ต้องเก็บและทางออกกี่ตัวเพื่อไปเช็คต่อใน ff_check
 {
     if (map == 'C')
         s->player_eat_c++;
@@ -206,13 +200,44 @@ void    ff_count(t_game *s,char map)
     return;
 }
 
-void    ff_check(t_game *s)
+void    ff_check(t_game *s)//ฟ.เช็คว่าตัวที่เดินผ่านไปเก็บเหรียญครบไหมและ เดินไปทางออกได้ไหม
 {
     if (s->player_eat_c != s->count_c || s->player_eat_e != 1)
     {
         print_error("Path error ff_check \n");
+        free_map_play(s);
+        free_map_real(s);
         exit(1);
     }
+    free_map_real(s);
+    return;
+}
+
+void    free_map_real(t_game *s)
+{
+    int i;
+
+    i = 0;
+    while (i < s->height)
+    {
+        free(s->map_real[i]);
+        i++;
+    }
+    free(s->map_real);
+    return;
+}
+
+void    free_map_play(t_game *s)
+{
+    int i;
+
+    i = 0;
+    while (i < s->height)
+    {
+        free(s->map_play[i]);
+        i++;
+    }
+    free(s->map_play);
     return;
 }
 

@@ -33,6 +33,7 @@ typedef struct s_game
 	int	player_l;
 	int	player_eat_c;
 	int	player_eat_e;
+	int	init;
 }	t_game;
 
 int map_check_rectangle(char **argv, t_game *s);
@@ -46,5 +47,7 @@ void    map_count_part_check(t_game *s);
 void    ff(t_game *s, char **map, int    h, int   l);
 void    ff_count(t_game *s,char map);
 void    ff_check(t_game *s);
+void    free_map_play(t_game *s);
+void    free_map_real(t_game *s);
 
 #endif
