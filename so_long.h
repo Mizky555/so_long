@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:54 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/05 19:58:48 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/19 02:10:01 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "./libft/libft.h"
 # include "./libft/get_next_line_bonus.h"
 # include "./ft_printf/ft_printf.h"
+# include "./mlx/mlx.h"
 
 typedef struct s_game
 {
@@ -33,7 +34,13 @@ typedef struct s_game
 	int	player_l;
 	int	player_eat_c;
 	int	player_eat_e;
-	int	init;
+	void	*mlx;
+	void	*window;
+	void	*floor;
+	void	*wall;
+	void	*collectible;
+	void	*exit;
+	void	*player;
 }	t_game;
 
 int map_check_rectangle(char **argv, t_game *s);
@@ -49,5 +56,8 @@ void    ff_count(t_game *s,char map);
 void    ff_check(t_game *s);
 void    free_map_play(t_game *s);
 void    free_map_real(t_game *s);
+void    render(t_game *s);
+void    render_floor(t_game *s);
+void    render_wall(t_game *s);
 
 #endif

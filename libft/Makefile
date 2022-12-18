@@ -32,15 +32,15 @@ SRCS			= ft_itoa.c \
 					ft_strdup.c \
 					ft_substr.c \
 					ft_strjoin.c \
-					get_next_line_bonus->c \
-					get_next_line_utils_bonus->c
+					get_next_line_bonus.c \
+					get_next_line_utils_bonus.c
 
 
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I. -g
 
 NAME			= libft.a
 

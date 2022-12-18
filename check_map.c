@@ -6,12 +6,12 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 23:06:40 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/05 19:58:10 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/19 02:15:36 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <sys/fcntl.h>
+#include <fcntl.h>
 
 void map_create(char **argv, t_game *s)//เปิดไฟล์อ่านเพื่อจับยัดลงstrที่จะใช้วิ่งจริง
 {
@@ -204,6 +204,7 @@ void    ff_check(t_game *s)//ฟ.เช็คว่าตัวที่เด�
 {
     if (s->player_eat_c != s->count_c || s->player_eat_e != 1)
     {
+        printf("play_c = %d \n count_c = %d\n player_e = %d\n",s->player_eat_c,s->count_c,s->player_eat_e);
         print_error("Path error ff_check \n");
         free_map_play(s);
         free_map_real(s);
