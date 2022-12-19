@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:54 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/19 02:10:01 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:11:12 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,9 @@ void    free_map_real(t_game *s);
 void    render(t_game *s);
 void    render_floor(t_game *s);
 void    render_wall(t_game *s);
+void    player_walk(int mode, int h, int l, t_game *s);
+int check_part(t_game *s,int h, int l);
+int key_hook(int keycode, t_game *s);
+
 
 #endif

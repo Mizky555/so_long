@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:45 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/19 02:29:03 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:09:39 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
       map_wallandpart(&s);
       ff(&s, s.map_real, s.player_h, s.player_l);
       ff_check(&s);
-
+      s.player_eat_c = 0;
       render(&s);
       return(0);
    }
