@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:38:54 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/23 01:39:44 by vpanviri         ###   ########.fr       */
+/*   Updated: 2022/12/23 03:53:49 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include "./libft/libft.h"
 # include "./libft/get_next_line_bonus.h"
-# include "./ft_printf/ft_printf.h"
 # include "./mlx/mlx.h"
 
 typedef struct s_game
@@ -67,5 +66,6 @@ void	player_walk(int mode, int h, int l, t_game *s);
 int		check_part(t_game *s, int h, int l);
 int		key_hook(int keycode, t_game *s);
 int		ft_close(t_game *s);
+void	check_player(int h, int l, t_game *s);
 
 #endif

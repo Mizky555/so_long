@@ -6,14 +6,17 @@
 #    By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 20:40:02 by tsirirak          #+#    #+#              #
-#    Updated: 2022/12/23 03:10:00 by tsirirak         ###   ########.fr        #
+#    Updated: 2022/12/23 03:50:58 by tsirirak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= check_file.c \
-					check_map.c \
-					so_long.c \
+SRCS			=	check_file.c \
+					check_map_ff.c \
+					check_map_part.c \
+					check_map_wall.c \
+					render_create.c \
 					render.c \
+					so_long.c
 
 OBJS			= $(SRCS:.c=.o)
 
