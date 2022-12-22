@@ -27,6 +27,8 @@ typedef struct s_game
 	char	**map_play;
 	int	height;
 	int	lenght;
+	int	h;
+	int	l;
     int count_c;
     int count_e;
     int count_p;
@@ -34,6 +36,7 @@ typedef struct s_game
 	int	player_l;
 	int	player_eat_c;
 	int	player_eat_e;
+	int	count_walk;
 	void	*mlx;
 	void	*window;
 	void	*floor;
@@ -62,6 +65,6 @@ void    render_wall(t_game *s);
 void    player_walk(int mode, int h, int l, t_game *s);
 int check_part(t_game *s,int h, int l);
 int key_hook(int keycode, t_game *s);
-
+int ft_close(t_game *s);
 
 #endif

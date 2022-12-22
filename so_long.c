@@ -29,6 +29,7 @@
       ff(&s, s.map_real, s.player_h, s.player_l);
       ff_check(&s);
       s.player_eat_c = 0;
+      s.count_walk = 0;
       render(&s);
       return(0);
    }

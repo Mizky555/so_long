@@ -169,9 +169,6 @@ void    map_count_part_check(t_game *s)//เช็คว่าตัวต่า
         print_error("Error map count part check");
         exit(1);
     }
-        printf("s->count_c = %d\n",s->count_c);
-        printf("s->count_e = %d\n",s->count_e);
-        printf("s->count_p = %d\n",s->count_p);
 }
 
 
@@ -204,7 +201,6 @@ void    ff_check(t_game *s)//ฟ.เช็คว่าตัวที่เด�
 {
     if (s->player_eat_c != s->count_c || s->player_eat_e != 1)
     {
-        printf("play_c = %d \n count_c = %d\n player_e = %d\n",s->player_eat_c,s->count_c,s->player_eat_e);
         print_error("Path error ff_check \n");
         free_map_play(s);
         free_map_real(s);
@@ -219,7 +215,7 @@ void    free_map_real(t_game *s)
     int i;
 
     i = 0;
-    while (i < s->height)
+    while (i < s->h)
     {
         free(s->map_real[i]);
         i++;
@@ -233,7 +229,7 @@ void    free_map_play(t_game *s)
     int i;
 
     i = 0;
-    while (i < s->height)
+    while (i < s->h)
     {
         free(s->map_play[i]);
         i++;

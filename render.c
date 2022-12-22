@@ -28,6 +28,8 @@ int key_hook(int keycode, t_game *s)
         player_walk(check_part(s, newplayer_h,newplayer_l - 1), newplayer_h, newplayer_l - 1, s);
     else if (keycode == 124 || keycode == 2)//>>right>>
         player_walk(check_part(s, newplayer_h,newplayer_l + 1), newplayer_h, newplayer_l + 1, s);
+    else if (keycode == 53)
+        ft_close(s);
     return (0);
 }
 
@@ -35,8 +37,15 @@ int check_part(t_game *s,int h, int l)
 {
     if (s->map_play[h][l] == '0' || s->map_play[h][l] == 'C')
     {
+        s->count_walk++;
         if (s->map_play[h][l] == 'C')
+        {
             s->player_eat_c++;
+            s->map_play[h][l] = '0';
+        }
+        write(1, "Step : ", 7);
+        ft_putnbr_fd(s->count_walk, 1);
+        write(1, "\n", 1);
         return (1);
     }
     // if (ft_strchr("0C",s->map_real[h][l]) != NULL)
@@ -47,10 +56,18 @@ int check_part(t_game *s,int h, int l)
     // }
     else if (s->map_play[h][l] == 'E')
     {
+        s->count_walk++;
         if (s->player_eat_c == s->count_c)
+        {
+            write(1, "Step : ", 7);
+            ft_putnbr_fd(s->count_walk, 1);
             exit(0);
+        }
         return (1);
     }
+    write(1, "Step : ", 7);
+    ft_putnbr_fd(s->count_walk, 1);
+    write(1, "\n", 1);
     return (0);
 }
 
@@ -85,14 +102,23 @@ void    player_walk(int mode, int h, int l, t_game *s)
 
 }
 
+int ft_close(t_game *s)
+{
+
+    mlx_destroy_window(s->mlx, s->window);
+    ft_putstr_fd("exiting... :D\n", 1);
+    free_map_play(s);
+    exit(0);
+}
+
+
+
 void    render(t_game *s)
 {
-    // void    *mlx;
-    // void    *window;
-    // s->init = mlx_init();
     s->mlx = mlx_init();
-    // s->window = mlx_new_window(s->init,s->lenght * 64,s->height * 64,"so_long");
     s->window = mlx_new_window(s->mlx, (s->lenght * 64)+1, (s->height * 64)+1,"so_long");
+    s->l = s->lenght;
+    s->h = s->height;
     s->floor = mlx_xpm_file_to_image(s->mlx,"./pic64/space64.xpm",&s->lenght,&s->height);
     s->wall = mlx_xpm_file_to_image(s->mlx,"./pic64/wall64.xpm",&s->lenght,&s->height);
     s->collectible = mlx_xpm_file_to_image(s->mlx,"./pic64/colectable64.xpm",&s->lenght,&s->height);
@@ -100,13 +126,8 @@ void    render(t_game *s)
     s->player = mlx_xpm_file_to_image(s->mlx,"./pic64/toilet64.xpm",&s->lenght,&s->height);
     render_floor(s);
     render_wall(s);
-    // int h=0;
-    // while(h < s->height){
-    //     printf("%s",s->map_play[h]);
-    //     h++;
-    // }
     mlx_key_hook(s->window, key_hook, s);
-    // mlx_key_hook(s->window, key_hook, s);
+    mlx_hook(s->window, 17, 0, ft_close, s);
     mlx_loop(s->mlx);
 }
 
