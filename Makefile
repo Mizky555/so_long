@@ -6,7 +6,7 @@
 #    By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 20:40:02 by tsirirak          #+#    #+#              #
-#    Updated: 2022/12/19 19:47:49 by tsirirak         ###   ########.fr        #
+#    Updated: 2022/12/23 03:10:00 by tsirirak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,24 +30,24 @@ LIBFT           = ./libft
 
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
 
 $(NAME): $(OBJS)
-	make -C $(LIBDIR) 
-	make -C $(MLXDIR)
-	$(CC) $(OBJS) $(LIB) -o $(NAME)
+	@make -C $(LIBDIR)
+	@make -C $(MLXDIR)
+	@$(CC) $(OBJS) $(LIB) -o $(NAME)
 
 all:			$(NAME)
 
 clean:
-	make -C $(LIBDIR) clean
-	$(RM) $(OBJS)
+	@make -C $(LIBDIR) clean
+	@$(RM) $(OBJS)
 
 fclean:			clean
-	make -C $(LIBDIR) fclean
-	$(RM) $(NAME)
+	@make -C $(LIBDIR) fclean
+	@$(RM) $(NAME)
 
 re:				fclean $(NAME)
-	make -C $(LIBDIR) re
+	@make -C $(LIBDIR) re
 
 .PHONY:			all clean fclean re bonus

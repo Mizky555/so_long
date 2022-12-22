@@ -47,7 +47,7 @@ NAME			= libft.a
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-					ar rcs $(NAME) $(OBJS)
+					@ar rcs $(NAME) $(OBJS)
 
 clean:
 					$(RM) $(OBJS) $(BONUS_OBJS)

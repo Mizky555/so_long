@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus->c                              :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsirirak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
 
 char	*ft_join(char *s1, char *s2, int len_s2)
 {
@@ -62,7 +61,6 @@ char	*get_next_line(int fd)
 	static t_box	b[FOPEN_MAX];
 
 	buf = NULL;
-	s = NULL;
 	if (fd < 0 || fd > FOPEN_MAX || read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -71,7 +69,8 @@ char	*get_next_line(int fd)
 	s = get_next_line_2(fd, buf, &b[fd]);
 	if (s == NULL)
 	{
-		s = ft_join(s, b[fd].str, len_nl(b[fd].str, ft_strlen_gn(b[fd].str), 1));
+		s = ft_join(s, b[fd].str, len_nl(b[fd].str,
+					ft_strlen_gn(b[fd].str), 1));
 		b[fd].str = ft_strchr_l(b[fd].str, 0);
 		if (buf)
 		{
