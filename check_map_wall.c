@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 23:06:40 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/23 03:29:18 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/24 18:15:14 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	map_create(char **argv, t_game *s)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		print_error("file error\n");
-	s->map_real = malloc(sizeof(char *) * s->height + 1);
+	s->map_real = malloc(sizeof(char *) * (s->height + 1));
 	while (h < s->height)
 	{
 		s->map_real[h] = get_next_line(fd);
@@ -31,7 +31,7 @@ void	map_create(char **argv, t_game *s)
 	close(fd);
 	h = 0;
 	fd = open(argv[1], O_RDONLY);
-	s->map_play = malloc(sizeof(char *) * s->height + 1);
+	s->map_play = malloc(sizeof(char *) * (s->height + 1));
 	while (h < s->height)
 	{
 		s->map_play[h] = get_next_line(fd);

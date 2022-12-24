@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 21:27:21 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/23 03:33:16 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/24 18:29:13 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ void	print_step(int count)
 
 int	check_part(t_game *s, int h, int l)
 {
-	if (s->map_play[h][l] == '0' || s->map_play[h][l] == 'C')
+	if (s->map_play[h][l] == 'C' || s->map_play[h][l] == '0'
+			|| s->map_play[h][l] == 'P')
 	{
 		s->count_walk++;
-		if (s->map_play[h][l] == 'C')
+		if (s->map_play[h][l] == 'C' )
 		{
 			s->player_eat_c++;
 			s->map_play[h][l] = '0';
 		}
+		else if (s->map_play[h][l] == 'P')
+			s->map_play[h][l] = '0';
 		print_step(s->count_walk);
 		return (1);
 	}

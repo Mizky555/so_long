@@ -6,7 +6,7 @@
 /*   By: tsirirak <mavin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 03:27:44 by tsirirak          #+#    #+#             */
-/*   Updated: 2022/12/23 03:32:06 by tsirirak         ###   ########.fr       */
+/*   Updated: 2022/12/24 18:14:26 by tsirirak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_map_real(t_game *s)
 	int	i;
 
 	i = 0;
-	while (i < s->h)
+	while (s->map_real[i])
 	{
 		free(s->map_real[i]);
 		i++;
@@ -67,7 +67,7 @@ void	free_map_play(t_game *s)
 	int	i;
 
 	i = 0;
-	while (i < s->h)
+	while (s->map_play[i])
 	{
 		free(s->map_play[i]);
 		i++;
